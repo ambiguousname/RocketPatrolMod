@@ -1,7 +1,7 @@
 /* Tyler Knowlton
 Test Rocket Patrol Mod, Please Ignore
 Started: 19:28 at 4/23
-Ended:
+Ended: 23:30 at 4/23 (Roughly 4 hours to finish)
 Mods List:
 - New, smaller, faster enemy spaceship (15 points)
 - Alternating two player mode (15 points)

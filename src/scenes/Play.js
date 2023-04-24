@@ -26,8 +26,8 @@ export class Play extends Phaser.Scene {
 			let field = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);
 			field.tileMoveSpeed = Math.random() * 2;
 
-			field.tilePositionX = Math.floor(Math.random() * 100);
-			field.tilePositionY = Math.floor(Math.random() * 100);
+			field.tilePositionX = Math.floor(Math.random() * 500);
+			field.tilePositionY = Math.floor(Math.random() * 500);
 
 			field.tint = Math.floor(Math.random() * 0xffffff);
 			this.#fields.push(field);
@@ -165,7 +165,7 @@ export class Play extends Phaser.Scene {
 			scale: { start: 0.3, end: 0},
 			x: ship.x,
 			y: ship.y,
-			frequency: -1,
+			frequency: -1
 		});
 		particles.emitParticle(50);
 
