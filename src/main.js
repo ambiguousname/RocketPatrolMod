@@ -15,13 +15,13 @@ Citations:
 - https://javascript.info/import-export
 */
 
-import {Menu, Play} from "./scenes/Scenes.js";
+import {Menu, Play, Score} from "./scenes/Scenes.js";
 
 let config = {
 	type: Phaser.CANVAS,
 	width: 640,
 	height: 480,
-	scene: [Menu, Play]
+	scene: [Menu, Play, Score]
 }
 
 window.game = new Phaser.Game(config);
