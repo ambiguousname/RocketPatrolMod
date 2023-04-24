@@ -3,12 +3,12 @@ Test Rocket Patrol Mod, Please Ignore
 Started: 19:28 at 4/23
 Ended:
 Mods List:
-- New, smaller, faster enemy spaceship (15 points)
+- New, smaller, faster enemy spaceship (15 points) (Done)
 - Alternating two player mode (15 points)
-- Adding time for successful hits (15 points)
+- Adding time for successful hits (15 points) (Done)
 - Mouse controls (15 points)
 - Phaser Particle Emitter for particle explosion when rocket hits ship (15 points)
-- Display time remaining (10 points)
+- Display time remaining (10 points) (Done)
 - 4 new explosion sound effects, randomized (10 points)
 - High score (5 points)
 Citations:

@@ -35,21 +35,21 @@ export class Menu extends Phaser.Scene {
 	}
 
 	update() {
+		game.settings = {
+			player: 1,
+			scores: [0, 0],
+		};
 		if (this.keyLEFT.isDown) {
 			// easy mode
-			game.settings = {
-			spaceshipSpeed: 3,
-			gameTimer: 60000    
-			}
+			game.settings.spaceshipSpeed = 3;
+			game.settings.gameTimer = 60000;
 			this.sound.play('sfx_select');
 			this.scene.start('playScene');    
 		}
 		if (this.keyRIGHT.isDown) {
 			// hard mode
-			game.settings = {
-			spaceshipSpeed: 4,
-			gameTimer: 45000    
-			}
+			game.settings.spaceshipSpeed = 4;
+			game.settings.gameTimer = 45000;
 			this.sound.play('sfx_select');
 			this.scene.start('playScene');    
 		}

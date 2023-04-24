@@ -39,6 +39,11 @@ export class Play extends Phaser.Scene {
 	update() {
 		var secondElapsed = this.time.now - this.startEndGameTimer;
 		var fullSecs = (this.endGameTime - secondElapsed)/1000;
+		if (fullSecs <= 0) {
+			game.settings.scores[(game.settings.player + 1) % 2] = this.p1Score;
+			this.scene.start("scoreScene");
+		}
+
 		var secsFormat = (Math.floor(fullSecs * 10)/10).toString();
 		while (secsFormat.length < 4) {
 			if (secsFormat.length < 3) {
@@ -105,17 +110,13 @@ export class Play extends Phaser.Scene {
 			},
 			fixedWidth: 100
 		  }
-		  this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
-		  scoreConfig.fixedWidth = 0;
-		  this.timerLeft = this.add.text(borderUISize * 5 + borderPadding, borderPadding * 2 + borderUISize, "0", scoreConfig);
-		  this.gameOver = false;
-		  // 60-second play clock	
-		  scoreConfig.fixedWidth = 0;
-		  this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
-			  this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
-			  this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or <- for Score', scoreConfig).setOrigin(0.5);
-			  this.gameOver = true;
-		  }, null, this);
+		this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
+		scoreConfig.fixedWidth = 0;
+		this.timerLeft = this.add.text(borderUISize * 5 + borderPadding, borderPadding * 2 + borderUISize, "0", scoreConfig);
+		
+		scoreConfig.backgroundColor = "#" + (game.settings.player === 1 ? "F3" : "55") + "B141";
+		scoreConfig.color = (game.settings.player === 1) ? "#843605" : "#000000";
+		this.add.text(game.config.width - 5 * borderUISize - borderPadding, borderUISize + 2 * borderPadding, "Player " + game.settings.player, scoreConfig);
 	}
 
 	// #endregion
