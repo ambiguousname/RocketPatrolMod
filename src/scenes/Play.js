@@ -16,8 +16,22 @@ export class Play extends Phaser.Scene {
 		this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
 	}
 
+	#fields = [];
+
 	create() {
-		this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);
+		var starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);
+		starfield.tileMoveSpeed = 4;
+		this.#fields.push(starfield);
+		for (var i = 0; i < 10; i++) {
+			let field = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);
+			field.tileMoveSpeed = Math.random() * 2;
+
+			field.tilePositionX = Math.floor(Math.random() * 100);
+			field.tilePositionY = Math.floor(Math.random() * 100);
+
+			field.tint = Math.floor(Math.random() * 0xffffff);
+			this.#fields.push(field);
+		}
 		
 		this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 0);
 
@@ -60,7 +74,9 @@ export class Play extends Phaser.Scene {
 			}
 		}
 
-		this.starfield.tilePositionX -= 4;
+		this.#fields.forEach(function(field) {
+			field.tilePositionX -= field.tileMoveSpeed;
+		});
 		if (!this.gameOver) {
 			this.p1Rocket.update();
 			this.#enemies.forEach(function(ship) {
@@ -142,12 +158,24 @@ export class Play extends Phaser.Scene {
 		let boom = this.add.sprite(ship.x, ship.y, 'explosion');
 		boom.displayWidth = ship.width;
 		boom.displayHeight = ship.height;
+
+		let particles = this.add.particles('explosion', {
+			speed: 500,
+			lifespan: 500,
+			scale: { start: 0.3, end: 0},
+			x: ship.x,
+			y: ship.y,
+			frequency: -1,
+		});
+		particles.emitParticle(50);
+
 		boom.anims.play('explode');             // play explode animation
 		boom.on('animationcomplete', () => {    // callback after anim completes
 			ship.reset();                         // reset ship position
 			ship.alpha = 1;                       // make ship visible again
 			boom.destroy();                       // remove explosion sprite
 		});
+
 		this.p1Score += ship.points;
 		this.endGameTime += ship.points * 80;
   		this.scoreLeft.text = this.p1Score;
